@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="detail-section">
+    <div class="container">
+        
+        <div class="detail-content-grid">
+
+            <div class="detail-image-box" data-aos="fade-right">
+                <div class="detail-image-wrapper">
+                    {% if DetailsGameModel.img %}
+                      <img src="{{ DetailsGameModel.img.url }}" alt="{{ DetailsGameModel.name }}" loading="eager">
+                    {% else %}
+                      <img src="{% static 'img/no-image.png' %}" alt="تصویری موجود نیست" loading="eager">
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="detail-info-box" data-aos="fade-left">
+                
+                <h1 class="detail-title">{{ DetailsGameModel.name }}</h1>
+                
+                {% if DetailsGameModel.category %}
+                <span class="detail-category">{{ DetailsGameModel.category }}</span>
+                {% endif %}
+
+                <div class="detail-actions">
+                    {% if DetailsGameModel.is_buyable %}
+                    <a href="#" class="btn-primary-filled detail-buy-btn">
+                        خرید بازی <i class="ri-shopping-cart-line"></i>
+                    </a>
+                    {% endif %}
+                    
+                    <a href="{% url 'ListGames' %}" class="btn-secondary-ghost">
+                        <i class="ri-arrow-left-line"></i> بازگشت به لیست
+                    </a>
+                </div>
+
+                <div class="detail-description-box">
+                    <h3 class="description-heading">درباره این بازی</h3>
+                    <p class="detail-description">{{ DetailsGameModel.description }}</p>
+                </div>
+                
+            </div>
+        </div>
+        
+        <hr class="divider">
+
+        {% include "games/comment.html" %}
+    </div>
+</section>
+
+<style>
+/* تعاریف متغیرهای اصلی (یکپارچه با صفحه لیست) */
+:root {
+    --primary-color: #007bff; /* آبی روشن */
+    --text-color-dark: #1f2937; /* متن اصلی تیره */
+    --text-color-light: #4b5563; /* متن فرعی */
+    --bg-color-main: #f9fafb; 
+    --bg-color-card: #ffffff; 
+    --shadow-base: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --border-radius-base: 12px;
+}
+
+.detail-section {
+    padding: 6rem 0 4rem; /* فضای کافی */
+}
+.divider {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 4rem 0;
+}
+
+/* 1. Grid ساختار اصلی */
+.detail-content-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; /* تصویر کمی بزرگتر */
+    gap: 50px;
+    align-items: flex-start;
+}
+
+/* 2. تصویر محصول */
+.detail-image-box {
+    background: var(--bg-color-card);
+    border-radius: var(--border-radius-base);
+    box-shadow: var(--shadow-base);
+    overflow: hidden;
+    padding: 15px; /* قاب سفید دور تصویر */
+}
+.detail-image-wrapper {
+    overflow: hidden;
+    border-radius: 8px;
+    line-height: 0;
+}
+.detail-image-wrapper img {
+    width: 100%;
+    height: auto;
+    max-height: 550px;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.5s ease-out;
+}
+/* افکت خفن: زوم ظریف روی تصویر */
+.detail-image-box:hover img {
+    transform: scale(1.02);
+}
+
+/* 3. اطلاعات */
+.detail-info-box {
+    padding-top: 20px;
+}
+.detail-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color-dark);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+.detail-category {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    background: rgba(0, 123, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* 4. دکمه‌ها (یکپارچه با صفحه لیست) */
+.detail-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    align-items: center;
+}
+.btn-primary-filled { /* دکمه اصلی (Buy) */
+    padding: 12px 30px;
+    background-color: var(--primary-color); 
+    color: #fff;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.btn-primary-filled:hover {
+    background-color: #0056b3; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+.btn-secondary-ghost { /* دکمه فرعی (Back) */
+    padding: 10px 20px;
+    border: 2px solid #d1d5db;
+    color: var(--text-color-light);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.btn-secondary-ghost:hover {
+    background-color: #f3f4f6;
+    color: var(--text-color-dark);
+    border-color: #acb1b8;
+}
+.btn-secondary-ghost i {
+    margin-right: 8px;
+}
+
+/* 5. توضیحات */
+.description-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color-dark);
+    margin-bottom: 0.8rem;
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+.detail-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-color-light);
+}
+
+
+/* 6. واکنشگرایی */
+@media (max-width: 1024px) {
+    .detail-content-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .detail-image-box {
+        max-width: 500px; /* محدود کردن عرض تصویر در موبایل */
+        margin: 0 auto;
+    }
+    .detail-info-box {
+        padding-top: 0;
+    }
+    .detail-title {
+        font-size: 2rem;
+    }
+}
+</style>
+
+{% endblock %}

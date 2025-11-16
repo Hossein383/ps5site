@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - PS5 Games</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f0f4ff, #ffffff);
+}
+
+.register-container {
+    background: #fff;
+    padding: 3rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.register-container h2 {
+    color: #335eea;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.register-container p {
+    color: #506690;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+/* ==== FORM ==== */
+.register-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.register-container input {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.register-container input:focus {
+    border-color: #335eea;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(51,94,234,0.2);
+}
+
+.register-container button {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #335eea;
+    color: #fff;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register-container button:hover {
+    background-color: #2b50c7;
+}
+
+/* ==== LINK TO LOGIN ==== */
+.register-container .login-link {
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+    color: #506690;
+}
+
+.register-container .login-link a {
+    color: #335eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.register-container .login-link a:hover {
+    color: #2b50c7;
+}
+
+/* ==== RESPONSIVE ==== */
+@media(max-width: 480px) {
+    .register-container {
+        padding: 2rem 1.5rem;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<div class="register-container">
+    <h2>Create Account</h2>
+    <p>Register a new account for PS5 Games</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="username" placeholder="Username" required>
+        
+        <input type="email" name="email" placeholder="Email" required>
+
+        <input type="password" name="password1" placeholder="Password" required>
+
+        <input type="password" name="password2" placeholder="Confirm Password" required>
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p class="login-link">
+        Already have an account? <a href="/login">Login</a>
+    </p>
+</div>
+
+</body>
+</html>

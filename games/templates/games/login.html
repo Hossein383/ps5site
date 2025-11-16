@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - PS5 Games</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f0f4ff, #ffffff);
+}
+
+.login-container {
+    background: #fff;
+    padding: 3rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-container h2 {
+    color: #335eea;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.login-container p {
+    color: #506690;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+/* ==== FORM ==== */
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-container input {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.login-container input:focus {
+    border-color: #335eea;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(51,94,234,0.2);
+}
+
+.login-container button {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #335eea;
+    color: #fff;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-container button:hover {
+    background-color: #2b50c7;
+}
+
+/* ==== LINKS ==== */
+.login-container .links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.login-container .links a {
+    color: #335eea;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.login-container .links a:hover {
+    color: #2b50c7;
+}
+
+/* ==== RESPONSIVE ==== */
+@media(max-width: 480px) {
+    .login-container {
+        padding: 2rem 1.5rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Welcome Back</h2>
+    <p>Login to your PS5 Games account</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="links">
+        <a href="{% url "Register" %}">Register</a>
+    </div>
+</div>
+
+</body>
+</html>

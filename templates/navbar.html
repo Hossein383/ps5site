@@ -1,0 +1,160 @@
+<header class="main-header">
+  <nav class="nav container">
+
+    <!-- LOGO -->
+    <div class="nav-logo">
+      PS5 <span>Games</span>
+    </div>
+
+    <!-- NAV MENU -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="{%url 'index' %}">Home</a></li>
+      <li><a href="{% url "ListGames" %}">Games</a></li>
+      {% if user.is_authenticated %}
+       <li><a href="{% url "logout" %}">Log Out</a></li>
+       {% else  %}
+      <li><a href="{% url "login" %}">Login</a></li>
+      {% endif %}
+
+      <!-- CLOSE BTN (MOBILE) -->
+      <button class="nav-close" id="navClose">&times;</button>
+    </ul>
+
+    <!-- MOBILE TOGGLE BUTTON -->
+    <button class="nav-toggle" id="navToggle">&#9776;</button>
+
+  </nav>
+
+  <!-- ================= CSS ================= -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    /* RESET */
+    .main-header, .nav, .nav-links, .nav-links li, .nav-toggle {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ================= HEADER ================= */
+    .main-header {
+      width: 100%;
+      height: 75px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+    }
+
+    .nav.container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ========== LOGO ========== */
+    .nav-logo {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #335eea;
+    }
+    .nav-logo span {
+      color: #ff4d6d;
+    }
+
+    /* ========== NAV LINKS DESKTOP ========== */
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+      transition: .3s;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #506690;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: .3s;
+    }
+
+    .nav-links a:hover {
+      color: #335eea;
+    }
+
+    /* MOBILE BUTTONS */
+    .nav-toggle, .nav-close {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #335eea;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100%;
+        width: 75%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 3rem 2rem;
+        background: #ffffff;
+        box-shadow: -2px 0 15px rgba(0,0,0,0.08);
+        transition: .3s;
+        gap: 1.5rem;
+      }
+
+      .nav-links.show {
+        right: 0;
+      }
+
+      .nav-close {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      .nav-links li a {
+        font-size: 1.2rem;
+        color: #335eea;
+      }
+    }
+  </style>
+
+  <!-- ================= JS ================= -->
+  <script>
+    const navLinks = document.getElementById('navLinks');
+    const navToggle = document.getElementById('navToggle');
+    const navClose = document.getElementById('navClose');
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.add('show');
+    });
+
+    navClose.addEventListener('click', () => {
+      navLinks.classList.remove('show');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('show');
+      });
+    });
+  </script>
+
+</header>
