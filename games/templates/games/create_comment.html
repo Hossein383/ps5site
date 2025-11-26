@@ -1,4 +1,3 @@
-<!-- فرم ارسال کامنت -->
 <div class="comment-form-wrapper">
   <h3>Leave a Comment</h3>
 
@@ -7,8 +6,8 @@
     {% csrf_token %}
 
     <div class="form-group">
-      {{ form.body.label_tag }}
-      {{ form.body }}
+      <textarea name="body" id="id_body" maxlength="500" placeholder="Write your comment..." required></textarea>
+      <label for="id_body">Your Comment</label>
     </div>
 
     <button type="submit" class="submit-comment-btn">Post Comment</button>
@@ -18,7 +17,7 @@
   <div class="login-message">
     <p>
       برای ارسال کامنت باید ابتدا 
-      <a href="{%url 'login' %}" class="login-link">وارد سایت</a> 
+      <a href="{% url 'login' %}" class="login-link">وارد سایت</a> 
       شوید.
     </p>
   </div>
@@ -26,104 +25,135 @@
 </div>
 
 <style>
-/* ---------- باکس اصلی ---------- */
+/* ---------- Wrapper ---------- */
 .comment-form-wrapper {
   margin-top: 3rem;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(10px);
-  padding: 2.2rem;
-  border-radius: 18px;
-  border: 1px solid rgba(200, 210, 255, 0.4);
-  box-shadow: 0 12px 25px rgba(51, 94, 234, 0.08);
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(15px);
+  padding: 2.5rem;
+  border-radius: 24px;
+  border: 1px solid rgba(51,94,234,0.15);
+  box-shadow: 0 12px 28px rgba(51,94,234,0.08);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* ---------- تیتر ---------- */
+/* ---------- Title ---------- */
 .comment-form-wrapper h3 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: #2f3fa8;
-  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg,#335eea,#2a4bd4);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-/* ---------- استایل فرم ---------- */
+/* ---------- Form ---------- */
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.3rem;
+  gap: 1.5rem;
+}
+
+/* ---------- Floating Label ---------- */
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.form-group textarea {
+  padding: 18px 16px 16px 16px;
+  border-radius: 18px;
+  border: none;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 15px rgba(51,94,234,0.08);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1f2937;
+  min-height: 140px;
+  resize: none;
+  transition: all 0.3s ease;
+}
+
+.form-group textarea::placeholder {
+  color: transparent; /* placeholder خاموش می‌شود، label می‌آید */
 }
 
 .form-group label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  color: #8fa1c7;
+  font-size: 1rem;
+  font-weight: 500;
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 14px;
+  font-size: 0.85rem;
+  color: #335eea;
   font-weight: 600;
-  font-size: 1rem;
-  color: #3e4b75;
+  background: rgba(255,255,255,0.5);
+  padding: 0 4px;
+  border-radius: 4px;
 }
 
-/* ---------- استایل TextArea ---------- */
-textarea {
-  padding: 14px;
-  font-size: 1rem;
-  border-radius: 12px !important;
-  border: 1px solid #c9d4f8;
-  min-height: 130px;
-  resize: none;
-  background: #f8faff;
-  transition: 0.25s ease;
-}
-
-textarea:focus {
-  outline: none;
-  border-color: #335eea;
-  box-shadow: 0 0 0 4px rgba(51, 94, 234, 0.20);
-}
-
-/* ---------- دکمه ارسال ---------- */
+/* ---------- Submit Button ---------- */
 .submit-comment-btn {
-  width: 190px;
-  padding: 12px;
-  background: linear-gradient(135deg, #335eea, #2a49d4);
-  color: #fff;
-  font-weight: 600;
+  align-self: flex-start;
+  padding: 14px 32px;
+  background: linear-gradient(135deg,#335eea,#2a4bd4);
+  border-radius: 18px;
+  font-weight: 700;
   font-size: 1rem;
-  border-radius: 12px;
+  color: #fff;
   border: none;
   cursor: pointer;
-  transition: 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .submit-comment-btn:hover {
   transform: translateY(-3px);
-  background: linear-gradient(135deg, #2a49d4, #2036b5);
-  box-shadow: 0 12px 20px rgba(51, 94, 234, 0.25);
+  box-shadow: 0 10px 20px rgba(51,94,234,0.25);
 }
 
-/* ---------- پیام کاربران غیر عضو ---------- */
+/* ---------- Message for non-logged-in users ---------- */
 .login-message {
-  background: #fff;
-  border: 1px solid #e0e6ff;
-  padding: 1.2rem;
-  border-radius: 12px;
+  text-align: center;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
+  padding: 1.5rem 2rem;
+  border-radius: 18px;
+  border: 1px solid rgba(51,94,234,0.1);
   font-size: 1rem;
-  color: #4a577a;
-  box-shadow: 0 6px 15px rgba(51, 94, 234, 0.08);
+  color: #3d4663;
+  box-shadow: 0 6px 15px rgba(51,94,234,0.08);
 }
 
 .login-link {
   color: #335eea;
   font-weight: 700;
   text-decoration: none;
+  transition: all 0.25s;
 }
 
 .login-link:hover {
   text-decoration: underline;
+  color: #2a4bd4;
 }
 
-/* ---------- ریسپانسیو ---------- */
-@media (max-width: 768px) {
-  .submit-comment-btn {
-    width: 100%;
-  }
-  textarea {
-    min-height: 100px;
-  }
+/* ---------- Responsive ---------- */
+@media(max-width:768px){
+  .comment-form-wrapper{padding:2rem;}
+  .form-group textarea{min-height:120px;}
+  .submit-comment-btn{width:100%;text-align:center;}
 }
 </style>

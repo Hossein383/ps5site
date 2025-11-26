@@ -1,161 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PS5 Games</title>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PS5 Games{% endblock %}</title>
 
-    <!-- Remixicon -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <!-- Icons & AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- AOS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <!-- ==== MAIN STYLE (همان css که دادی) ==== -->
-    <style>
-      /* ======  کل CSS اصلی که خودت دادی اینجاست ====== */
-      /* ==== "Inter" FONT-FAMILY ==== */
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg,#f7f4ef,#e8e1d5);
+      --bg-body:#f7f4ef;
+      --text-dark:#1c1c1e;
+      --text-muted:#7a7566;
+      --accent-gradient:linear-gradient(90deg,#c9b89e,#e8e1d5);
+      --radius:16px;
+      --shadow:0 16px 36px rgba(0,0,0,0.08);
+      --header-h:82px;
+    }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Inter", sans-serif;
-      }
-      *,
+    html{font-family:"Inter",sans-serif;scroll-behavior:smooth;}
+    body{margin:0;background:var(--bg-body);color:var(--text-dark);min-height:100vh;}
+    .container{width:90%;max-width:1200px;margin:0 auto;}
+    main{padding-top:calc(var(--header-h)+24px);padding-bottom:48px;}
+    h1{font-size:clamp(1.8rem,2.5vw,2.6rem);margin:0;font-weight:800;}
+    h2{font-size:1.1rem;margin:0;font-weight:700;}
+    p{color:var(--text-muted);line-height:1.7;margin:0;}
 
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
+    .card{
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(14px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .card:hover{
+      transform: translateY(-6px);
+      box-shadow:0 24px 48px rgba(0,0,0,0.1);
+    }
 
-      :root {
-        --primary-color: #335eea;
-        --link-color: #506690;
-        --btn-hover-color: #2b50c7;
-        --lg-heading: #161c2d;
-        --text-content: #869ab8;
-        --fixed-header-height: 4.5rem;
-        --font-size-body-text: clamp(14px, 1.6vw, 16px);
-        --h1-font-size: calc(var(--font-size-body-text) * 2.4);
-        --h2-font-size: calc(var(--h1-font-size) - 15px);
-        --h3-font-size: calc(var(var(--h2-font-size)) - 8px);
-      }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:8px;padding:10px 18px;border-radius:12px;
+      font-weight:600;cursor:pointer;text-decoration:none;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .btn-accent{
+      background:var(--accent-gradient);color:white;border:none;
+    }
+    .btn-accent:hover{
+      transform:translateY(-2px); box-shadow:0 6px 20px rgba(201,184,158,0.35);
+    }
+    .btn-ghost{
+      background:transparent;border:1px solid rgba(28,28,30,0.12);color:var(--text-dark);
+    }
 
-      body {
-        width: 100%;
-        height: 100vh;
-        overflow-x: hidden;
-        background-color: #fafbfb;
-      }
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+    @media (max-width:1024px){.grid-3{grid-template-columns:repeat(2,1fr);}}
+    @media (max-width:680px){.grid-3{grid-template-columns:1fr;}}
+    .accent-text{
+      background:var(--accent-gradient);-webkit-background-clip:text; background-clip:text;color:transparent;font-weight:800;
+    }
 
-      ul li {
-        list-style-type: none;
-      }
+    footer{text-align:center;color:var(--text-muted);padding:36px 0;font-size:0.95rem;}
 
-      a {
-        text-decoration: none;
-      }
-
-      button {
-        background-color: transparent;
-        border: none;
-        outline: none;
-        cursor: pointer;
-      }
-
-      .container {
-        width: 100%;
-      }
-
-      @media screen and (min-width: 1040px) {
-        .container {
-          width: 1040px;
-          margin: 0 auto;
-        }
-      }
-
-      /* WRAPPER */
-      .wrapper {
-        width: 100%;
-        padding-left: 1.7rem;
-        padding-right: 1.7rem;
-        padding-top: 5rem;
-        margin-bottom: 5rem;
-      }
-
-      /* GRID SYSTEM */
-      .grid-cols-3 {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-      }
-
-      /* کارت‌ها */
-      .grid-col-item {
-        padding: 20px;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 0.5rem 1.5rem rgba(22, 28, 45, 0.08);
-        transition: 0.2s;
-      }
-
-      .grid-col-item:hover {
-        transform: translateY(-5px);
-      }
-
-      .featured_info .title {
-        font-size: 22px;
-        font-weight: 600;
-        color: var(--primary-color);
-      }
-
-      .featured_info p {
-        margin-top: 5px;
-        font-size: 15px;
-        color: #334157;
-      }
-
-      .product-img-wrapper {
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-        border-radius: 10px;
-        background: #e8ebf3;
-      }
-
-      .product-img-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      @media (max-width: 768px) {
-        .grid-cols-3 {
-          grid-template-columns: repeat(1, 1fr);
-        }
-      }
-
-    </style>
-
-  </head>
-
-  <body>
-
-    {% include "navbar.html" %}
-
-    {% block content %}
-    {% endblock content %}
-
-    <!-- AOS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script>
-      AOS.init();
-    </script>
-
-  </body>
+  </style>
+</head>
+<body>
+  {% include "navbar.html" %}
+  <main>
+    <div class="container">{% block content %}{% endblock %}</div>
+  </main>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({duration:700, once:true, easing:'cubic-bezier(.16,.84,.24,1)'});
+  </script>
+</body>
 </html>

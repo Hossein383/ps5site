@@ -2,24 +2,16 @@
 {% load static %}
 
 {% block content %}
-
 <section class="game-list-section">
     <div class="container">
 
         <header class="page-header" data-aos="fade-up">
-            <h1 class="page-title">
-                Games <span>PS5</span>
-            </h1>
-            <p class="page-subtitle">
-                فهرستی از بهترین بازی‌های پلی استیشن ۵ با جزئیات کامل.
-            </p>
+            <br><br><br>
         </header>
 
         <div class="products-grid" data-aos="fade-up" data-aos-duration="800">
-
             {% for list in lists %}
             <article class="product-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:80 }}">
-
                 <a href="{{ list.get_absolute_url }}" class="product-image-link">
                     <div class="product-image-wrapper">
                         {% if list.img.url %}
@@ -29,179 +21,108 @@
                         {% endif %}
                     </div>
                 </a>
-
                 <div class="product-body">
                     <h2 class="product-title">
-                        <a href="{% url 'Details' list.id %}">{{ list.name }}</a>
+                        <a href="{% url 'Details' list.id %}" class="accent-text">{{ list.name }}</a>
                     </h2>
-
-                    <p class="product-desc">
-                        {{ list.description|truncatechars:80 }}
-                    </p>
-
-                    <a href="{% url 'Details' list.id %}" class="btn-primary-filled">
-                        مشاهده جزئیات <i class="ri-arrow-right-line"></i>
+                    <p class="product-desc">{{ list.description|truncatechars:80 }}</p>
+                    <a href="{% url 'Details' list.id %}" class="btn btn-accent">
+                        Details <i class="ri-arrow-right-line"></i>
                     </a>
                 </div>
-
             </article>
             {% empty %}
             <p class="empty-message">متأسفانه هیچ بازی‌ای برای نمایش اضافه نشده است.</p>
             {% endfor %}
-
         </div>
 
     </div>
 </section>
 
 <style>
-/* تعاریف رنگ‌های اصلی (برای یکپارچگی) */
+/* Variables */
 :root {
-    --primary-color: #007bff; /* آبی روشن برای تمرکز */
-    --text-color-dark: #1f2937; 
-    --text-color-light: #4b5563; 
-    --bg-color-card: #ffffff; 
-    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.05);
-    --border-radius-base: 12px;
+    --primary-color:#007bff;
+    --accent-gradient:linear-gradient(90deg,#c9b89e,#e8e1d5);
+    --text-dark:#1c1c1e;
+    --text-muted:#7a7566;
+    --bg-card:rgba(255,255,255,0.35);
+    --radius:16px;
+    --shadow:0 16px 36px rgba(0,0,0,0.08);
 }
 
-/* 1. ساختار صفحه و هدر */
-.game-list-section {
-    padding: 4rem 0;
+/* Page Header */
+.page-header{text-align:center;margin-bottom:3rem;}
+.page-title{font-size:clamp(2rem,3vw,2.8rem);font-weight:800;}
+.page-title span.accent-text{background:var(--accent-gradient);-webkit-background-clip:text;color:transparent;}
+.page-subtitle{color:var(--text-muted);margin-top:0.5rem;}
+
+/* Products Grid */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;}
+@media (max-width:1024px){.products-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:680px){.products-grid{grid-template-columns:1fr;}}
+
+/* Product Card */
+.product-card{
+  background:var(--bg-card);
+  backdrop-filter:blur(14px);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition:transform 0.35s ease,box-shadow 0.35s ease;
 }
-.page-header {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-.page-title {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--text-color-dark);
-}
-.page-title span {
-    color: var(--primary-color);
-    font-weight: 300;
-}
-.page-subtitle {
-    margin-top: 0.5rem;
-    font-size: 1.15rem;
-    color: var(--text-color-light);
+.product-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 24px 48px rgba(0,0,0,0.1);
 }
 
-/* 2. گرید محصولات */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-    gap: 30px;
+/* Image */
+.product-image-wrapper{width:100%;height:220px;overflow:hidden;border-radius:12px;}
+.product-image-wrapper img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s ease,rotate 0.5s ease;
 }
-.empty-message {
-    grid-column: 1 / -1; 
-    text-align: center;
-    padding: 3rem;
-    color: var(--text-color-light);
-    font-size: 1.1rem;
+.product-card:hover img{
+  transform:scale(1.05) rotate(0.5deg);
 }
 
-/* 3. کارت محصول (Card UX/UI) */
-.product-card {
-    background: var(--bg-color-card);
-    border-radius: var(--border-radius-base);
-    overflow: hidden;
-    box-shadow: var(--shadow-subtle);
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
-    border: 1px solid #e5e7eb; 
-    display: flex; /* برای تنظیم ارتفاع در حالت موبایل */
-    flex-direction: column;
-}
-.product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/* Body */
+.product-body{
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    flex-grow:1; /* اجازه میده محتوا کش بیاد */
 }
 
-/* 4. تصویر */
-.product-image-link {
-    display: block;
-}
-.product-image-wrapper {
-    width: 100%;
-    height: 250px; 
-    overflow: hidden;
-    background: #e0e6f6;
-}
-.product-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease-out;
-}
-.product-card:hover img {
-    transform: scale(1.05);
-}
+/* Product Title & Description */
+.product-title{font-size:1.3rem;font-weight:700;margin:0;line-height:1.4;}
+.product-title a{text-decoration:none;color:var(--text-dark);}
+.product-desc{font-size:0.95rem;color:var(--text-muted);flex-grow:1;}
 
-/* 5. متن و دکمه */
-.product-body {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* برای اینکه فضای اضافی را پر کند */
+/* Button */
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:10px 18px;
+    border-radius:12px;
+    font-weight:600;
+    text-decoration:none;
+    transition:transform 0.22s,box-shadow 0.22s;
+    margin-top:auto; /* دکمه همیشه پایین کارت */
 }
-.product-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-    line-height: 1.4;
+.btn-accent{
+    background:var(--accent-gradient);
+    color:white;
+    border:none;
 }
-.product-title a {
-    color: var(--text-color-dark);
-    transition: color 0.3s;
-}
-.product-title a:hover {
-    color: var(--primary-color);
-}
-.product-desc {
-    margin: 0.5rem 0 1.2rem;
-    color: var(--text-color-light);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    flex-grow: 1; /* اجازه رشد برای فضای خالی بین متن و دکمه */
-}
-
-/* 6. دکمه قابل مشاهده (Filled Button) */
-.btn-primary-filled {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 12px 0;
-    /* استفاده از مقادیر مستقیم برای اطمینان از نمایش */
-    background-color: #007bff; 
-    color: #fff;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-.btn-primary-filled:hover {
-    background-color: #0056b3; /* رنگ تیره‌تر هنگام هاور */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-}
-.btn-primary-filled i {
-    margin-left: 8px;
-    font-size: 1.1rem;
-}
-
-/* 7. واکنشگرایی */
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-    .page-title {
-        font-size: 2.5rem;
-    }
+.btn-accent:hover{
+    transform:scale(1.05);
+    box-shadow:0 8px 20px rgba(201,184,158,0.35);
 }
 </style>
-
 {% endblock %}

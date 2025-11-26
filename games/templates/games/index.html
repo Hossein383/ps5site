@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+
+<!-- HERO SECTION -->
 <section class="hero">
   <div class="container hero-content">
     <div class="hero-text">
@@ -8,331 +10,138 @@
         Explore the latest and greatest PlayStation 5 titles — reviews, screenshots,
         gameplay and more. Your next adventure starts here.
       </p>
-      <a href="{%url "ListGames" %}" class="hero-btn">Explore Games</a>
+      <a href="{% url 'ListGames' %}" class="hero-btn btn-accent">Explore Games</a>
     </div>
-
     <div class="hero-img">
       <img src="https://www.vipac.ir/wp-content/uploads/2024/12/ps5proreveal_8_large-1536x860.jpg" alt="PS5 Controller">
     </div>
   </div>
 </section>
 
+<!-- FEATURES SECTION -->
+<section class="features">
+  <div class="container">
+    <h2 class="features-title accent-text">Why Choose Us?</h2>
+    <div class="features-grid">
+      <div class="feature-box card">
+        <div class="icon">&#9733;</div>
+        <h3>Top Reviews</h3>
+        <p>We provide quality reviews for the newest and most popular PS5 titles.</p>
+      </div>
+      <div class="feature-box card">
+        <div class="icon">&#128187;</div>
+        <h3>Daily Updates</h3>
+        <p>Be the first to know about new releases, patches, and updates.</p>
+      </div>
+      <div class="feature-box card">
+        <div class="icon">&#128293;</div>
+        <h3>Trending Games</h3>
+        <p>See what’s hot right now in the PS5 gaming world.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <style>
-/* ============ HERO SECTION ============ */
+/* ===== HERO ===== */
 .hero {
   width: 100%;
   padding: 6rem 1.5rem 4rem;
-  background: linear-gradient(135deg, #f8faff, #eef3ff);
+  background: linear-gradient(135deg, #eef3ff, #f8faff);
 }
-
 .hero-content {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 3rem;
   max-width: 1200px;
   margin: 0 auto;
 }
-
 .hero-text h1 {
-  font-size: 2.8rem;
+  font-size: clamp(2.2rem, 4vw, 3rem);
   font-weight: 800;
-  color: #161c2d;
+  color: var(--text-dark);
   margin-bottom: 1rem;
 }
-
 .hero-text h1 span {
-  color: #335eea;
+  color: var(--accent);
 }
-
 .hero-text p {
   font-size: 1.1rem;
   color: #506690;
   line-height: 1.7;
   margin-bottom: 2rem;
-  max-width: 500px;
+  max-width: 480px;
 }
-
 .hero-btn {
-  padding: 14px 30px;
-  background: #335eea;
-  color: #fff;
-  border-radius: 10px;
-  font-weight: 600;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 12px;
   text-decoration: none;
-  transition: .3s;
-  display: inline-block;
 }
-
-.hero-btn:hover {
-  background: #284bc7;
-}
-
 .hero-img img {
   width: 380px;
   max-width: 100%;
   animation: float 4s ease-in-out infinite;
 }
-
 @keyframes float {
   0% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
   100% { transform: translateY(0); }
 }
 
-/* ============ FEATURES SECTION ============ */
+/* ===== FEATURES ===== */
 .features {
   padding: 4rem 1.5rem;
   text-align: center;
-  max-width: 1200px;
-  margin: 0 auto;
 }
-
 .features-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #335eea;
   margin-bottom: 3rem;
 }
-
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
-
 .feature-box {
-  background: #fff;
+  background: var(--bg-container);
   padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 0.7rem 1.7rem rgba(0,0,0,0.06);
-  transition: .3s;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .feature-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 1.1rem 2rem rgba(0,0,0,0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.12);
 }
-
 .feature-box .icon {
   font-size: 2.5rem;
-  color: #335eea;
+  color: var(--accent);
   margin-bottom: 1rem;
 }
-
 .feature-box h3 {
   font-size: 1.3rem;
   font-weight: 700;
+  color: var(--text-dark);
   margin-bottom: 0.7rem;
-  color: #161c2d;
 }
-
 .feature-box p {
   color: #506690;
   font-size: 0.95rem;
   line-height: 1.6;
 }
 
-/* ============ RESPONSIVE ============ */
-@media (max-width: 900px) {
-  .hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-text p {
-    margin: 0 auto 2rem;
-  }
-  .hero-img img {
-    width: 270px;
-  }
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .hero-content { flex-direction: column; text-align: center; }
+  .hero-text p { margin-bottom: 1.8rem; }
+  .hero-img img { width: 270px; }
 }
-
 @media (max-width: 768px) {
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
+  .features-grid { grid-template-columns: 1fr; }
 }
 </style>
 
-
-{% endblock content %}
-<section class="hero">
-  <div class="container hero-content">
-    <div class="hero-text">
-      <h1>Discover The Best <span>PS5 Games</span></h1>
-      <p>
-        Explore the latest and greatest PlayStation 5 titles — reviews, screenshots,
-        gameplay and more. Your next adventure starts here.
-      </p>
-      <a href="/products" class="hero-btn">Explore Games</a>
-    </div>
-
-    <div class="hero-img">
-      <img src="https://i.ibb.co/3F4TLnc/ps5-controller.png" alt="PS5 Controller">
-    </div>
-  </div>
-</section>
-
-<section class="features container">
-  <h2 class="features-title">Why Choose Us?</h2>
-
-  <div class="features-grid">
-    <div class="feature-box">
-      <div class="icon">&#9733;</div>
-      <h3>Top Reviews</h3>
-      <p>We provide quality reviews for the newest and most popular PS5 titles.</p>
-    </div>
-
-    <div class="feature-box">
-      <div class="icon">&#128187;</div>
-      <h3>Daily Updates</h3>
-      <p>Be the first to know about new releases, patches, and updates.</p>
-    </div>
-
-    <div class="feature-box">
-      <div class="icon">&#128293;</div>
-      <h3>Trending Games</h3>
-      <p>See what’s hot right now in the PS5 gaming world.</p>
-    </div>
-  </div>
-</section>
-
-<style>
-/* ============ HERO SECTION ============ */
-.hero {
-  width: 100%;
-  padding: 6rem 1.5rem 4rem;
-  background: linear-gradient(135deg, #f8faff, #eef3ff);
-}
-
-.hero-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.hero-text h1 {
-  font-size: 2.8rem;
-  font-weight: 800;
-  color: #161c2d;
-  margin-bottom: 1rem;
-}
-
-.hero-text h1 span {
-  color: #335eea;
-}
-
-.hero-text p {
-  font-size: 1.1rem;
-  color: #506690;
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  max-width: 500px;
-}
-
-.hero-btn {
-  padding: 14px 30px;
-  background: #335eea;
-  color: #fff;
-  border-radius: 10px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: .3s;
-  display: inline-block;
-}
-
-.hero-btn:hover {
-  background: #284bc7;
-}
-
-.hero-img img {
-  width: 380px;
-  max-width: 100%;
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-}
-
-/* ============ FEATURES SECTION ============ */
-.features {
-  padding: 4rem 1.5rem;
-  text-align: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.features-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #335eea;
-  margin-bottom: 3rem;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-
-.feature-box {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 0.7rem 1.7rem rgba(0,0,0,0.06);
-  transition: .3s;
-}
-
-.feature-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 1.1rem 2rem rgba(0,0,0,0.08);
-}
-
-.feature-box .icon {
-  font-size: 2.5rem;
-  color: #335eea;
-  margin-bottom: 1rem;
-}
-
-.feature-box h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 0.7rem;
-  color: #161c2d;
-}
-
-.feature-box p {
-  color: #506690;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* ============ RESPONSIVE ============ */
-@media (max-width: 900px) {
-  .hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-text p {
-    margin: 0 auto 2rem;
-  }
-  .hero-img img {
-    width: 270px;
-  }
-}
-
-@media (max-width: 768px) {
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
-
-
+{% endblock %}

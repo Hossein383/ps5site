@@ -6,9 +6,9 @@
     <div class="comments-list">
       {% for comment in ListCommentModel %}
       <div class="comment-item">
-        <div class="comment-avatar">
-          {% comment %} <img src="{% static 'img/avatar.png' %}" alt="avatar"> {% endcomment %}
-        </div>
+       <div class="comment-avatar">
+          <img src="https://static.vecteezy.com/system/resources/previews/007/319/933/large_2x/black-avatar-person-icons-user-profile-icon-vector.jpg" alt="avatar">
+        </div> 
 
         <div class="comment-content">
           <div class="comment-author">{{ comment.name }}</div>
@@ -17,7 +17,7 @@
         </div>
       </div>
       {% empty %}
-      <p>No comments yet. Be the first to comment!</p>
+      <p class="no-comments">No comments yet. Be the first to comment!</p>
       {% endfor %}
     </div>
 
@@ -25,113 +25,98 @@
     <div class="comment-form-wrapper">
       {% include "games/create_comment.html" %}
     </div>
-
   </div>
 </section>
 
 <style>
-/* ----------- بخش اصلی کامنت‌ها ----------- */
+/* Glassmorphism و استایل مدرن کامنت‌ها */
 .comments-section {
   padding: 4rem 0;
-  background: #f8faff;
-  border-top: 1px solid #edf1fc;
+  background: linear-gradient(135deg,#eaf0ff,#f8faff);
 }
 
 .comments-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #2d3ea8;
+  font-size: 2.2rem;
+  font-weight: 800;
   text-align: center;
   margin-bottom: 3rem;
-  letter-spacing: -0.5px;
+  background: linear-gradient(90deg,#335eea,#2a4bd4);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-/* ----------- لیست کامنت‌ها ----------- */
 .comments-list {
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
 }
 
-/* هر کامنت */
 .comment-item {
   display: flex;
   gap: 1.2rem;
   padding: 1.5rem;
-  background: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #eef2ff;
-  box-shadow: 0 6px 20px rgba(51, 94, 234, 0.06);
-  transition: 0.25s ease;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid rgba(51,94,234,0.15);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .comment-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(51, 94, 234, 0.12);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 36px rgba(0,0,0,0.12);
 }
 
-/* آواتار */
 .comment-avatar img {
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #e3e9ff;
-  box-shadow: 0 4px 12px rgba(51, 94, 234, 0.15);
+  border: 2px solid rgba(255,255,255,0.6);
+  box-shadow: 0 6px 18px rgba(51,94,234,0.15);
 }
 
-/* متن کامنت */
 .comment-content {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
 .comment-author {
-  font-size: 1rem;
   font-weight: 700;
-  color: #335eea;
+  background: linear-gradient(90deg,#335eea,#2a4bd4);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 1.05rem;
 }
 
 .comment-text {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #3d4663;
   line-height: 1.6;
-  padding-right: 10px;
 }
 
 .comment-date {
   font-size: 0.8rem;
   color: #8fa1c7;
-  margin-top: 5px;
 }
 
-/* ----------- فرم ارسال کامنت ----------- */
+/* فرم ارسال کامنت */
 .comment-form-wrapper {
   margin-top: 3rem;
-  background: #ffffff;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(12px);
   padding: 2rem;
-  border-radius: 16px;
-  border: 1px solid #e5e9fa;
-  box-shadow: 0 6px 18px rgba(51, 94, 234, 0.08);
-}
-
-.comment-form-wrapper h3 {
-  font-size: 1.6rem;
-  color: #2d3ea8;
-  margin-bottom: 1.2rem;
-}
-
-.comment-form-wrapper form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(51,94,234,0.15);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
 }
 
 .comment-form-wrapper textarea {
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #cdd5f3;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(51,94,234,0.25);
   font-size: 1rem;
   min-height: 120px;
   resize: none;
@@ -140,36 +125,28 @@
 
 .comment-form-wrapper textarea:focus {
   border-color: #335eea;
-  box-shadow: 0 0 0 4px rgba(51, 94, 234, 0.15);
+  box-shadow: 0 0 0 4px rgba(51,94,234,0.15);
 }
 
 .submit-comment-btn {
-  align-self: flex-start;
   padding: 12px 28px;
-  background: linear-gradient(135deg, #335eea, #2a4bd4);
+  background: linear-gradient(135deg,#335eea,#2a4bd4);
   border: none;
-  border-radius: 10px;
+  border-radius: 14px;
   color: #fff;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .submit-comment-btn:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #2a4bd4, #203bb6);
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(51,94,234,0.3);
 }
 
-/* ----------- ریسپانسیو ----------- */
-@media (max-width: 768px) {
-  .comment-item {
-    flex-direction: column;
-    padding: 1.2rem;
-  }
-
-  .comment-avatar img {
-    width: 45px;
-    height: 45px;
-  }
+/* Responsive */
+@media(max-width:768px){
+  .comment-item{flex-direction:column;padding:1rem;}
+  .comment-avatar img{width:50px;height:50px;}
 }
 </style>
